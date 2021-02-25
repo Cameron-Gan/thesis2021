@@ -1,0 +1,46 @@
+{
+    "tariffs": [
+        {
+            "tariff_name": "OriginGo",
+            "supply_charge": 73.71,
+            "fit": 8,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 39.26,
+                "15,24": 39.26,
+                "0,1": 39.26,
+                "10,15": 24.76,
+                "1,6": 20.55
+            }
+        },
+        {
+            "tariff_name": "OVO One Plan",
+            "supply_charge": 85.25,
+            "fit": 8,
+            "tariff_type": "flat",
+            "flat": 28.6
+        },
+        {
+            "tariff_name": "OriginGo CL",
+            "supply_charge": 73.71,
+            "fit": 8,
+            "tariff_type": "TOU_controlled_load",
+            "TOU_controlled_load": {
+                "6,10": 39.26,
+                "15,24": 39.26,
+                "0,1": 39.26,
+                "10,15": 20.55,
+                "1,6": 24.76
+            },
+            "controlled_load_tariff": 15.81
+        },
+        {
+            "tariff_name": "GloSave",
+            "supply_charge": 104.5,
+            "fit": 8,
+            "tariff_type": "flat_controlled_load",
+            "flat_controlled_load": 28.38,
+            "controlled_load_tariff": 19.8
+        }
+    ]
+}

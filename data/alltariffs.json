@@ -1,0 +1,306 @@
+{
+    "tariffs": [
+        {
+            "tariff_name": "ReAmped Advanced",
+            "supply_charge": 89.62,
+            "fit": 3,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 29.5,
+                "15,24": 29.5,
+                "0,1": 29.5,
+                "10,15": 13.96,
+                "1,6": 17.36
+            }
+        },
+        {
+            "tariff_name": "Glo Bird Std",
+            "supply_charge": 104.5,
+            "fit": 3,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 34.56,
+                "15,24": 34.56,
+                "0,1": 34.56,
+                "10,15": 14.19,
+                "1,6": 14.19
+            }
+        },
+        {
+            "tariff_name": "Glo Bird Premium",
+            "supply_charge": 104.5,
+            "fit": 44,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 34.56,
+                "15,24": 34.56,
+                "0,1": 34.56,
+                "10,15": 14.19,
+                "1,6": 14.19
+            }
+        },
+        {
+            "tariff_name": "Energy Locals",
+            "supply_charge": 62.0,
+            "fit": 8.5,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 31.0,
+                "15,24": 31.0,
+                "0,1": 31.0,
+                "10,15": 17.0,
+                "1,6": 17.0
+            }
+        },
+        {
+            "tariff_name": "Kogan Energy",
+            "supply_charge": 117.18,
+            "fit": 4.11,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 28.71,
+                "15,24": 28.71,
+                "0,1": 28.71,
+                "10,15": 15.38,
+                "1,6": 18.71
+            }
+        },
+        {
+            "tariff_name": "Power Shop",
+            "supply_charge": 113.99,
+            "fit": 7.5,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 33.28,
+                "15,24": 33.28,
+                "0,1": 33.28,
+                "10,15": 19.17,
+                "1,6": 21.85
+            }
+        },
+        {
+            "tariff_name": "Freedom Plus",
+            "supply_charge": 76.04,
+            "fit": 0,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 44.0,
+                "15,24": 44.0,
+                "0,1": 44.0,
+                "10,15": 17.6,
+                "1,6": 25.85
+            }
+        },
+        {
+            "tariff_name": "Total Plan Home",
+            "supply_charge": 107.8,
+            "fit": 10.5,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 46.04,
+                "15,24": 46.04,
+                "0,1": 46.04,
+                "10,15": 25.44,
+                "1,6": 16.4
+            }
+        },
+        {
+            "tariff_name": "OriginGo",
+            "supply_charge": 73.71,
+            "fit": 8,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 39.26,
+                "15,24": 39.26,
+                "0,1": 39.26,
+                "10,15": 24.76,
+                "1,6": 20.55
+            }
+        },
+        {
+            "tariff_name": "SA Power",
+            "supply_charge": 69.99,
+            "fit": 6,
+            "tariff_type": "TOU",
+            "TOU": {
+                "14,20": 39.99,
+                "7,14": 26.95,
+                "20,22": 26.95,
+                "22,24": 20.35,
+                "0,7": 20.35
+            }
+        },
+        {
+            "tariff_name": "Simply Energy",
+            "supply_charge": 106.7,
+            "fit": 10,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 47.17,
+                "15,24": 47.17,
+                "0,1": 47.17,
+                "10,15": 20.9,
+                "1,6": 17.13
+            }
+        },
+        {
+            "tariff_name": "Alinta Energy",
+            "supply_charge": 72.6,
+            "fit": 9.5,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 42.9,
+                "15,24": 42.9,
+                "0,1": 42.9,
+                "10,15": 24.92,
+                "1,6": 20.49
+            }
+        },
+        {
+            "tariff_name": "AGL Essentials",
+            "supply_charge": 76.92,
+            "fit": 12.4,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 38.74,
+                "15,24": 38.74,
+                "0,1": 38.74,
+                "10,15": 26.73,
+                "1,6": 21.25
+            }
+        },
+        {
+            "tariff_name": "Diamond Energy",
+            "supply_charge": 115.45,
+            "fit": 10.2,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 42.0,
+                "15,24": 42.0,
+                "0,1": 42.0,
+                "10,15": 24.86,
+                "1,6": 21.51
+            }
+        },
+        {
+            "tariff_name": "Power Direct",
+            "supply_charge": 78.69,
+            "fit": 12.4,
+            "tariff_type": "TOU",
+            "TOU": {
+                "6,10": 39.63,
+                "15,24": 39.63,
+                "0,1": 39.63,
+                "10,15": 27.35,
+                "1,6": 21.74
+            }
+        },
+        {
+            "tariff_name": "OVO One Plan",
+            "supply_charge": 85.25,
+            "fit": 8,
+            "tariff_type": "flat",
+            "flat": 28.6
+        },
+        {
+            "tariff_name": "Reamped Advance CL",
+            "supply_charge": 89.62,
+            "fit": 3,
+            "tariff_type": "TOU_controlled_load",
+            "TOU_controlled_load": {
+                "6,10": 29.5,
+                "15,24": 29.5,
+                "0,1": 29.5,
+                "10,15": 13.96,
+                "1,6": 17.36
+            },
+            "controlled_load_tariff": 18.82
+        },
+        {
+            "tariff_name": "Energy Locals CL",
+            "supply_charge": 62.0,
+            "fit": 8.5,
+            "tariff_type": "TOU_controlled_load",
+            "TOU_controlled_load": {
+                "6,10": 31.0,
+                "15,24": 31.0,
+                "0,1": 31.0,
+                "10,15": 17.0,
+                "1,6": 17.0
+            },
+            "controlled_load_tariff": 17.0
+        },
+        {
+            "tariff_name": "OriginGo CL",
+            "supply_charge": 73.71,
+            "fit": 8,
+            "tariff_type": "TOU_controlled_load",
+            "TOU_controlled_load": {
+                "6,10": 39.26,
+                "15,24": 39.26,
+                "0,1": 39.26,
+                "10,15": 20.55,
+                "1,6": 24.76
+            },
+            "controlled_load_tariff": 15.81
+        },
+        {
+            "tariff_name": "AGL Residential Essentials CL",
+            "supply_charge": 76.92,
+            "fit": 12.4,
+            "tariff_type": "TOU_controlled_load",
+            "TOU_controlled_load": {
+                "6,10": 38.74,
+                "15,24": 38.74,
+                "0,1": 38.74,
+                "10,15": 21.25,
+                "1,6": 26.73
+            },
+            "controlled_load_tariff": 16.26
+        },
+        {
+            "tariff_name": "SA Power CL",
+            "supply_charge": 69.99,
+            "fit": 6,
+            "tariff_type": "TOU_controlled_load",
+            "TOU_controlled_load": {
+                "14,20": 39.99,
+                "7,14": 20.35,
+                "20,22": 20.35,
+                "0,7": 26.95,
+                "22,24": 26.95
+            },
+            "controlled_load_tariff": 18.88
+        },
+        {
+            "tariff_name": "Alinta Energy CL",
+            "supply_charge": 72.6,
+            "fit": 9.5,
+            "tariff_type": "TOU_controlled_load",
+            "TOU_controlled_load": {
+                "6,10": 42.9,
+                "15,24": 42.9,
+                "0,1": 42.9,
+                "10,15": 20.49,
+                "1,6": 24.92
+            },
+            "controlled_load_tariff": 18.28
+        },
+        {
+            "tariff_name": "GloSave",
+            "supply_charge": 104.5,
+            "fit": 8,
+            "tariff_type": "flat_controlled_load",
+            "flat_controlled_load": 28.38,
+            "controlled_load_tariff": 19.8
+        },
+        {
+            "tariff_name": "Red Energy MSO CL",
+            "supply_charge": 117.7,
+            "fit": 11.5,
+            "tariff_type": "flat_controlled_load",
+            "flat_controlled_load": 34.96,
+            "controlled_load_tariff": 19.2
+        }
+    ]
+}
