@@ -28,7 +28,6 @@ class ExtractLoad:
             end_index = non_zero[0][-1]
             difference = end_index - start_index
             l_sep = l_np[start_index:end_index]
-            print(l_np.size)
             for i in range(l_np.size):
                 if i + difference >= l_np.size:
                     break
