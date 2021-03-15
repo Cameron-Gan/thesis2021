@@ -7,7 +7,7 @@ seaborn.set()
 #%%
 
 # House 1 data Analysis
-house1 = pd.read_csv('./data/64613.csv')
+house1 = pd.read_csv('./data/64613_feather')
 # print(house1.columns)
 house1.drop(columns='Unnamed: 0', inplace=True)
 house1.drop_duplicates(inplace=True)
