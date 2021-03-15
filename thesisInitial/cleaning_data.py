@@ -20,11 +20,10 @@ def is_load_in_ac_net(load, house_consumption):
 
 
 def extract_data_from_house(house_id, load_on=False):
-    df = pd.read_csv(path.join(path_to_data, str(house_id)+'.csv'))
+    df = pd.read_feather(path.join(path_to_data, str(house_id)+'_feather'))
 
     location = df['Location'][0]
     load_type = df['load_type'][0]
-    print(load_type)
     df.drop(columns=['Location', 'load_type'], inplace=True)
 
     df.drop_duplicates(keep='first', inplace=True)
