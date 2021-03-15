@@ -1,8 +1,12 @@
 import pandas as pd
 import json
 from os import getcwd, path
+import matplotlib.pyplot as plt
+import numpy as np
 
-TARIFF_FILE = path.join(path.dirname(getcwd()), 'data', 'tariffs.json')
+current_path = path.split(path.abspath(__file__))[0]
+path_to_data = path.join(current_path, '..', 'data')
+TARIFF_FILE = path.join(path_to_data, 'tariffs.json')
 
 
 def setup_tariff_json():
@@ -95,6 +99,9 @@ class Tariff:
         self.fit = tariff_json['fit']
         self.read_tariff_type_data(tariff_json)
 
+    def plot_tariff(self, index, ax):
+        pass
+
 
 class Flat(Tariff):
     def __init__(self, tariff_name=None, supply_charge=None, fit=None, flat_rate=None):
@@ -118,6 +125,11 @@ class Flat(Tariff):
     def read_tariff_type_data(self, tariff_json):
         self.tariff_type = tariff_json['tariff_type']
         self.flat_rate = tariff_json[self.tariff_type]
+
+    def plot_tariff(self, index, ax):
+        x = index
+        y = np.full(len(x), self.flat_rate)
+        ax.plot(x, y)
 
 
 class TOU(Tariff):
@@ -155,7 +167,7 @@ class TOU(Tariff):
                                   labels=self.tariff_bin,
                                   include_lowest=True,
                                   ordered=False)
-        return tariff_from_time
+        return tariff_from_time.astype(float)
 
     def write_tariff_type_data(self, data):
         data['tariff_type'] = self.tariff_type
@@ -173,6 +185,13 @@ class TOU(Tariff):
             temp_tou_rate[eval(period)] = tariff
         self.tou_rate = temp_tou_rate
         self.time_bin, self.tariff_bin = self.convert_to_binned_TOU()
+
+    def plot_tariff(self, index, ax):
+        tariff_list = self.get_tariff_from_time_index(index.hour)
+        x = index
+        y = tariff_list
+        ax.plot(x,y)
+
 
 
 class TOUControlledLoad(TOU):
@@ -203,7 +222,7 @@ class TOUControlledLoad(TOU):
         grid_import = grid_import_load.grid_import
         load = grid_import_load.load
         controlled_load_cost = load * self.controlled_load_tariff
-        net_cost = (grid_import - load) * self.get_tariff_from_time_index(grid_import.index.hour).astype(float)
+        net_cost = (grid_import - load) * self.get_tariff_from_time_index(grid_import.index.hour)
         return net_cost + controlled_load_cost
 
 

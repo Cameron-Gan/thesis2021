@@ -19,9 +19,14 @@ def is_load_in_ac_net(load, house_consumption):
     return aligned.sum() / load_spikes.sum() > 0.05
 
 
-def extract_data_from_house(house_id, load_type):
+def extract_data_from_house(house_id, load_on=False):
     df = pd.read_csv(path.join(path_to_data, str(house_id)+'.csv'))
-    df.drop(columns=['Unnamed: 0'], inplace=True)
+
+    location = df['Location'][0]
+    load_type = df['load_type'][0]
+    print(load_type)
+    df.drop(columns=['Location', 'load_type'], inplace=True)
+
     df.drop_duplicates(keep='first', inplace=True)
     df['reading_datetime'] = pd.to_datetime(df['reading_datetime'])
     df.set_index('reading_datetime', inplace=True)
@@ -33,24 +38,28 @@ def extract_data_from_house(house_id, load_type):
                                       values=['energy', 'energy_pos', 'energy_neg'])
     net_energy = original_set[:]['energy']
 
-    load = net_energy.filter(regex=load_type).sum(axis=1).rename('load')
     PV = net_energy.filter(regex='pv_site_net').sum(axis=1).rename('PV')
     AC = net_energy.filter(regex='ac_load_net').sum(axis=1).rename('AC')
     total_use = AC + PV
+    load = pd.Series(index=total_use.index, data=np.zeros(len(net_energy.index)), name='load')
+    location = pd.Series(index=total_use.index,
+                         data=[location for i in range(len(net_energy.index))],
+                         name='Location')
 
-    if is_load_in_ac_net(load, total_use):
-        total_use = total_use
-        grid_import = AC.clip(lower=0)
-        grid_export = (AC * - 1).clip(lower=0)
-    else:
-        total_use = total_use + load
-        grid_import = (AC + load).clip(lower=0)
-        grid_export = ((AC + load) * - 1).clip(lower=0)
+    if load_on and type(load_type) == str:
+        load = net_energy.filter(regex=load_type).sum(axis=1).rename('load')
+        if not(is_load_in_ac_net(load, total_use)):
+            total_use = total_use + load
+
+    grid_import  = (total_use - PV).clip(lower=0)
+    grid_export  = ((total_use - PV) * -1).clip(lower=0)
     total_use = total_use.rename('total_use')
     grid_import = grid_import.rename('grid_import')
     grid_export = grid_export.rename('grid_export')
 
-    data = pd.concat([load, PV, AC, total_use, grid_import, grid_export], axis=1)
+    data = pd.concat([location, load, PV, AC, total_use, grid_import, grid_export], axis=1)
+    idx = pd.date_range(start='2019-01-01 00:00:00', end='2019-12-31 23:55:00', freq='5T')
+    data = data.reindex(idx, fill_value=0)
     return data
 
 
