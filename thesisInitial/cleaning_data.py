@@ -7,6 +7,34 @@ path_to_data = path.join(current_path, '..', 'data', 'houses')
 # houses = listdir(path_to_data)
 
 
+def prepare_features(data):
+    location = data['Location'][0]
+
+    data['total_use_wo_load'] = data['total_use'] - data['load']
+
+    temperature_df = pd.read_csv(path.join(path_to_data, '..', 'weather', location+'_Airport_Temp.csv'), index_col=0, parse_dates=True)
+    temperature_df = temperature_df.loc['2019']
+    insolation_df = pd.read_csv(path.join(path_to_data, '..', 'weather', location+'_Airport_Insolation.csv'), index_col=0, parse_dates=True)
+    insolation_df = insolation_df.loc['2019']
+
+    sample_rated = data['total_use_wo_load'].resample('5T').sum()
+    max_load = sample_rated.resample('24h').max().shift(1).rename('daily_max')
+
+    temperature_df = temperature_df.drop(columns='Minimum temperature (Degree C)')
+
+    feature_set = data.resample('24h').sum() / 1000
+    feature_set = pd.concat([feature_set, temperature_df, insolation_df, max_load], axis=1)
+    feature_set['month'] = feature_set.index.month
+    feature_set = pd.concat([feature_set, feature_set['total_use_wo_load'].shift(1).rename('previous_day')], axis=1)
+    feature_set = pd.concat([feature_set, feature_set['total_use_wo_load'].shift(2).rename('second_previous_day')], axis=1)
+    feature_set = pd.concat([feature_set, feature_set['total_use_wo_load'].shift(7).rename('previous_week')], axis=1)
+    feature_set['weekend_weekday'] = (feature_set.index.dayofweek < 5) * 1
+    feature_set['dayofweek'] = feature_set.index.dayofweek
+    feature_set['dates'] = feature_set.index
+    # for col in ['load', 'PV', 'AC', 'total_use', 'total_use_wo_load']: feature_set[col] = feature_set[col] / 1000
+    return feature_set
+
+
 def is_load_in_ac_net(load, house_consumption):
     house_consumption_diff = house_consumption.diff()
     load_diff = load.diff()
@@ -95,6 +123,42 @@ def extract_average_time_on(load):
     non_zero_days = load_24h[load_24h.on_time > 20].on_time
     average_duration = non_zero_days.mean()
     return average_duration
+
+# seasons = [
+#             ('summer', [12, 1, 2]),
+#             ('autumn', [3, 4, 5]),
+#             ('winter', [6, 7, 8]),
+#             ('spring', [9, 10, 11])
+#           ]
+
+def extract_season_median_load_profile(data):
+    median_data = data.copy(deep=True)
+    median_data['total_use_WO_load'] = median_data['total_use'] - median_data['load']
+    median_data.loc[:, 'Dates'] = median_data.index
+    median_data.loc[:, "Time"] = median_data.index.time
+    summer = median_data['2019-12'].append(median_data['2019-01':'2019-02'])
+    autumn = median_data['2019-03':'2019-05']
+    winter = median_data['2019-06':'2019-08']
+    spring = median_data['2019-09':'2019-11']
+    spring_pivot = spring.pivot(index='Time', columns='Dates', values='total_use_WO_load')
+    spring_pivot.loc[:, 'median'] = spring_pivot.median(axis=1)
+    spring_pivot.loc[:, 'mean'] = spring_pivot.mean(axis=1)
+    winter_pivot = winter.pivot(index='Time', columns='Dates', values='total_use_WO_load')
+    winter_pivot.loc[:, 'median'] = winter_pivot.median(axis=1)
+    winter_pivot.loc[:, 'mean'] = winter_pivot.mean(axis=1)
+    summer_pivot = summer.pivot(index='Time', columns='Dates', values='total_use_WO_load')
+    summer_pivot.loc[:, 'median'] = summer_pivot.median(axis=1)
+    summer_pivot.loc[:, 'mean'] = summer_pivot.mean(axis=1)
+    autumn_pivot = autumn.pivot(index='Time', columns='Dates', values='total_use_WO_load')
+    autumn_pivot.loc[:, 'median'] = autumn_pivot.median(axis=1)
+    autumn_pivot.loc[:, 'mean'] = autumn_pivot.mean(axis=1)
+
+    normalised_median = pd.DataFrame()
+    normalised_median['spring'] = spring_pivot['median'] / spring_pivot['median'].sum()
+    normalised_median['summer'] = summer_pivot['median'] / summer_pivot['median'].sum()
+    normalised_median['winter'] = winter_pivot['median'] / winter_pivot['median'].sum()
+    normalised_median['autumn'] = autumn_pivot['median'] / autumn_pivot['median'].sum()
+    return normalised_median
 
 
 # generates a load based on average runtime and rated power
